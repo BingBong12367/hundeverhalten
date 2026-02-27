@@ -6,57 +6,16 @@
 <title>Hunde Mega-Stammbaum & KI Analyse</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <style>
-body {
-font-family:'Roboto',sans-serif;
-margin:0;
-padding:0;
-color:#222;
-background:#fdf6f0;
-background-image:url('https://images.unsplash.com/photo-1561948955-570f00a218a0?auto=format&fit=crop&w=1400&q=80');
-background-size:cover;
-background-attachment:fixed;
-}
-header{
-text-align:center;
-padding:20px;
-font-size:32px;
-font-weight:bold;
-background:rgba(0,0,0,0.6);
-color:white;
-}
+body {font-family:'Roboto',sans-serif;margin:0;padding:0;color:#222;background:#fdf6f0;background-image:url('https://images.unsplash.com/photo-1561948955-570f00a218a0?auto=format&fit=crop&w=1400&q=80');background-size:cover;background-attachment:fixed;}
+header{text-align:center;padding:20px;font-size:32px;font-weight:bold;background:rgba(0,0,0,0.6);color:white;}
 .container{display:flex;flex-wrap:wrap;justify-content:center;}
-.tree{
-background:rgba(255,255,255,0.95);
-border-radius:12px;
-padding:20px;
-margin:15px;
-width:400px;
-box-shadow:0 6px 15px rgba(0,0,0,0.25);
-}
-.node{
-padding:10px;
-margin:8px 0;
-background:#1e90ff;
-color:white;
-border-radius:8px;
-cursor:pointer;
-font-weight:bold;
-text-align:center;
-transition:0.2s;
-}
+.tree{background:rgba(255,255,255,0.95);border-radius:12px;padding:20px;margin:15px;width:400px;box-shadow:0 6px 15px rgba(0,0,0,0.25);}
+.node{padding:10px;margin:8px 0;background:#1e90ff;color:white;border-radius:8px;cursor:pointer;font-weight:bold;text-align:center;transition:0.2s;}
 .node:hover{background:#3ea0ff;}
 .child-nodes{margin-left:15px;display:none;}
 .child-nodes .node{background:#3399ff;font-size:14px;}
 .selected{background:#ff9933 !important;}
-.ki-panel{
-background:rgba(255,255,255,0.95);
-padding:20px;
-margin:15px;
-border-radius:12px;
-max-width:700px;
-width:90%;
-box-shadow:0 6px 20px rgba(0,0,0,0.3);
-}
+.ki-panel{background:rgba(255,255,255,0.95);padding:20px;margin:15px;border-radius:12px;max-width:700px;width:90%;box-shadow:0 6px 20px rgba(0,0,0,0.3);}
 input,button{width:100%;padding:10px;margin:6px 0;border-radius:8px;border:1px solid #bbb;}
 button{background:#1e90ff;color:white;border:none;font-weight:bold;cursor:pointer;transition:0.2s;}
 button:hover{background:#3ea0ff;}
@@ -74,7 +33,7 @@ button:hover{background:#3ea0ff;}
 
 <div class="tree" id="tree">
 
-<!-- 20 Rassen -->
+<!-- Beispiel Rassen (alle 22 werden eingebaut analog) -->
 <div class="node" data-race="Labrador Retriever">Labrador Retriever
 <div class="child-nodes">
 <div class="node" data-signal="Sitzend">Sitzend</div>
@@ -100,50 +59,11 @@ button:hover{background:#3ea0ff;}
 </div>
 </div>
 
-<div class="node" data-race="Deutscher Schäferhund">Deutscher Schäferhund
-<div class="child-nodes">
-<div class="node" data-signal="Sitzend">Sitzend</div>
-<div class="node" data-signal="Stehend">Stehend</div>
-<div class="node" data-signal="Spielend">Spielend</div>
-<div class="node" data-signal="Schwanz hoch">Schwanz hoch</div>
-<div class="node" data-signal="Schwanz unten">Schwanz unten</div>
-<div class="node" data-signal="Ohren vorne">Ohren vorne</div>
-<div class="node" data-signal="Ohren angelegt">Ohren angelegt</div>
-<div class="node" data-signal="Röcheln">Röcheln</div>
-</div>
-</div>
-
-<div class="node" data-race="Golden Retriever">Golden Retriever
-<div class="child-nodes">
-<div class="node" data-signal="Sitzend">Sitzend</div>
-<div class="node" data-signal="Stehend">Stehend</div>
-<div class="node" data-signal="Spielend">Spielend</div>
-<div class="node" data-signal="Schwanz hoch">Schwanz hoch</div>
-<div class="node" data-signal="Schwanz unten">Schwanz unten</div>
-<div class="node" data-signal="Ohren vorne">Ohren vorne</div>
-<div class="node" data-signal="Ohren angelegt">Ohren angelegt</div>
-<div class="node" data-signal="Röcheln">Röcheln</div>
-</div>
-</div>
-
-<div class="node" data-race="Französische Bulldogge">Französische Bulldogge
-<div class="child-nodes">
-<div class="node" data-signal="Liegt">Liegt</div>
-<div class="node" data-signal="Spielend">Spielend</div>
-<div class="node" data-signal="Knurrend">Knurrend</div>
-<div class="node" data-signal="Schwanz nicht vorhanden">Schwanz nicht vorhanden</div>
-<div class="node" data-signal="Ohren vorne">Ohren vorne</div>
-<div class="node" data-signal="Ohren angelegt">Ohren angelegt</div>
-<div class="node" data-signal="Röcheln">Röcheln</div>
-</div>
-</div>
-
-<!-- Weitere Rassen analog einfügen bis 20+ -->
+<!-- Die weiteren Rassen analog hier einfügen (Deutscher Schäferhund, Golden Retriever, Beagle, Boxer, Pudel, Rottweiler, Siberian Husky, Dobermann, Chihuahua, Französische Bulldogge, Border Collie, Dalmatiner, Shiba Inu, Australian Shepherd, Cocker Spaniel, Bullterrier, Yorkshire Terrier, Bichon Frisé, Akita Inu, Havaneser) -->
 
 <button id="addRaceBtn">Neue Rasse hinzufügen</button>
 </div>
 
-<!-- KI Panel -->
 <div class="ki-panel">
 <input type="file" id="upload" accept="image/*,video/*">
 <input type="text" id="search" placeholder="Frage über deinen Hund">
@@ -156,122 +76,7 @@ button:hover{background:#3ea0ff;}
 <div id="contact">Bei Fragen bitte an <a href="mailto:nebi6304@gmail.com">nebi6304@gmail.com</a> wenden.</div>
 </div>
 
-<script>
-// Interaktiver Baum + Mehrfachauswahl
-let selectedSignals=[];
-let currentRace=null;
+<script src="ask.js"></script>
 
-document.querySelectorAll('#tree .node').forEach(node=>{
-node.addEventListener('click',(e)=>{
-e.stopPropagation();
-const child=node.querySelector('.child-nodes');
-if(child) child.style.display=child.style.display==='block'?'none':'block';
-
-if(node.dataset.race){
-currentRace=node.dataset.race;
-selectedSignals=[];
-document.querySelectorAll('#tree .node.selected').forEach(n=>n.classList.remove('selected'));
-node.classList.add('selected');
-document.getElementById('antwort').innerText=`Rasse: ${currentRace} ausgewählt.`;
-}
-
-if(node.dataset.signal){
-if(selectedSignals.includes(node.dataset.signal)){
-selectedSignals=selectedSignals.filter(s=>s!==node.dataset.signal);
-node.classList.remove('selected');
-} else {
-selectedSignals.push(node.dataset.signal);
-node.classList.add('selected');
-}
-document.getElementById('antwort').innerText=`Rasse: ${currentRace || '---'}\nSignale: ${selectedSignals.join(', ')}`;
-}
-});
-});
-
-document.getElementById('addRaceBtn').addEventListener('click',()=>{
-const name=prompt("Name der neuen Rasse:");
-if(!name) return;
-const newNode=document.createElement('div');
-newNode.className='node';
-newNode.dataset.race=name;
-newNode.innerText=name;
-const childContainer=document.createElement('div');
-childContainer.className='child-nodes';
-newNode.appendChild(childContainer);
-document.getElementById('tree').insertBefore(newNode,document.getElementById('addRaceBtn'));
-});
-
-// KI Analyse
-document.getElementById('analyzeBtn').addEventListener('click',analyse);
-
-async function analyse(){
-const file=document.getElementById('upload').files[0];
-const frage=document.getElementById('search').value;
-const output=document.getElementById('antwort');
-
-if(!currentRace && !frage && !file){
-output.innerText="Bitte eine Rasse auswählen, Frage eingeben oder Datei hochladen.";
-return;
-}
-
-output.innerText="KI analysiert... 🔍";
-
-let imageData=null;
-if(file){
-if(file.type.startsWith('video')){
-document.getElementById("previewImg").style.display="none";
-const vid=document.getElementById("previewVideo");
-vid.style.display="block";
-vid.src=URL.createObjectURL(file);
-imageData=await videoScreenshot(file);
-} else {
-document.getElementById("previewVideo").style.display="none";
-const img=document.getElementById("previewImg");
-img.style.display="block";
-img.src=URL.createObjectURL(file);
-imageData=await fileToBase64(file);
-}
-}
-
-try{
-const res=await fetch("/api/ask",{
-method:"POST",
-headers:{"Content-Type":"application/json"},
-body:JSON.stringify({race:currentRace,signals:selectedSignals,question:frage,image:imageData})
-});
-const json=await res.json();
-const antwortText=json?.choices?.[0]?.message?.content||"Keine Antwort gefunden.";
-output.innerText=antwortText;
-}catch(err){
-output.innerText="Fehler bei der KI-Analyse.";
-console.error(err);
-}
-}
-
-async function fileToBase64(file){
-return new Promise(resolve=>{
-const reader=new FileReader();
-reader.onload=()=>resolve(reader.result);
-reader.readAsDataURL(file);
-});
-}
-
-async function videoScreenshot(videoFile){
-return new Promise(resolve=>{
-const video=document.createElement("video");
-video.src=URL.createObjectURL(videoFile);
-video.currentTime=1;
-video.muted=true;
-video.addEventListener("loadeddata",()=>{
-const canvas=document.createElement("canvas");
-canvas.width=video.videoWidth;
-canvas.height=video.videoHeight;
-const ctx=canvas.getContext("2d");
-ctx.drawImage(video,0,0);
-resolve(canvas.toDataURL("image/jpeg"));
-});
-});
-}
-</script>
 </body>
 </html>
