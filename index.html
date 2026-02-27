@@ -3,107 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hundeverhalten Offline Premium</title>
-<style>
-body {margin:0;font-family:'Segoe UI',Arial,sans-serif;background:#111;color:#fff;overflow-x:hidden;}
-header{padding:20px;text-align:center;font-size:28px;font-weight:bold;background:rgba(0,0,0,0.85);}
-.container{display:flex;height:calc(100vh - 70px);}
-.sidebar{width:300px;background:rgba(0,0,0,0.9);padding:15px;overflow-y:auto;}
-.sidebar h3{color:#fff;margin-bottom:10px;}
-.sidebar button{width:100%;padding:12px;margin:5px 0;background:#222;color:#fff;border:none;border-radius:10px;cursor:pointer;}
-.sidebar button:hover{opacity:0.85;}
-.main{flex:1;padding:20px;overflow-y:auto;background:rgba(255,255,255,0.95);color:#111;border-left:2px solid #222;background-image:url('https://images.unsplash.com/photo-1561948955-57064d39d3e0?auto=format&fit=crop&w=1400&q=80');background-size:cover;background-position:center;}
-.search{width:100%;padding:14px;font-size:16px;border-radius:10px;border:1px solid #333;margin-bottom:20px;}
-.card{background:rgba(255,255,255,0.9);padding:20px;margin-top:15px;border-radius:15px;box-shadow:0 6px 15px rgba(0,0,0,0.25);}
-.tree button{background:#333;color:#fff;border:none;padding:12px;margin:5px;border-radius:8px;cursor:pointer;}
-.tree button:hover{opacity:0.85;}
-.upload input{margin-top:10px;}
-.preview img,.preview video{max-width:100%;border-radius:12px;margin-top:10px;}
-.feeling{margin-top:10px;padding:12px;border-radius:12px;border:1px solid #222;font-weight:bold;background:#eee;color:#111;}
-.mindmap{margin-top:15px;background:#f7f7f7;border-radius:14px;padding:15px;border:2px solid #222;}
-.mapItem{display:inline-block;margin:5px;padding:10px 14px;border-radius:12px;background:#333;color:white;}
-.footer{position:fixed;bottom:10px;right:20px;background:rgba(0,0,0,0.85);padding:8px 12px;border-radius:10px;font-size:12px;color:white;}
-
-/* Mobile Anpassung */
-@media only screen and (max-width: 768px) {
-.container {
-flex-direction: column; /* Sidebar über Main */
-height: auto;
-}
-.sidebar {
-width: 100%;
-max-height: 200px; /* Sidebar oben, scrollen möglich */
-overflow-x: auto;
-}
-.main {
-width: 100%;
-padding: 10px;
-}
-.search {
-font-size: 14px;
-padding: 10px;
-}
-.tree button, .sidebar button {
-font-size: 14px;
-padding: 10px;
-}
-.card {
-padding: 15px;
-}
-.mindmap .mapItem {
-font-size: 12px;
-padding: 6px 10px;
-}
-}
-</style>
-</head>
-<body>
-<header>🐕 Hundeverhalten Offline Premium — Vollständig Kostenlos</header>
-<div class="container">
-<div class="sidebar">
-<h3>Hunderassen</h3>
-<button onclick="selectBreed('Labrador')">Labrador</button>
-<button onclick="selectBreed('Schäferhund')">Schäferhund</button>
-<button onclick="selectBreed('Border Collie')">Border Collie</button>
-<button onclick="selectBreed('Golden Retriever')">Golden Retriever</button>
-<button onclick="selectBreed('Bulldogge')">Bulldogge</button>
-<button onclick="selectBreed('Husky')">Husky</button>
-<button onclick="selectBreed('Dalmatiner')">Dalmatiner</button>
-<button onclick="selectBreed('Dackel')">Dackel</button>
-<button onclick="selectBreed('Mischling')">Mischling</button>
-<hr>
-<button onclick="addBreed()">+ Neue Rasse</button>
-<button onclick="showHistory()">Verlauf anzeigen</button>
-<button onclick="exportHistory()">Export TXT</button>
-</div>
-<div class="main">
-<input id="search" class="search" placeholder="Frage an die KI, z.B. 'Warum wedelt mein Hund?'" oninput="analyseText()">
-<div class="card">
-<h3>Interaktiver Baum</h3>
-<div class="tree" id="tree"></div>
-</div>
-<div class="card upload">
-<h3>📷 Bild / 🎥 Video hochladen (Simuliert)</h3>
-<input type="file" accept="image/*,video/*" onchange="handleUpload(event)">
-<div class="preview" id="preview"></div>
-</div>
-<div class="card">
-<h3>KI Analyse & Wissenschaftliche Einschätzung</h3>
-<div id="result" class="feeling">Noch keine Analyse.</div>
-<div id="mindmap" class="mindmap"><b>Mindmap Analyse:</b></div>
-</div>
-</div>
-</div>
-<div class="footer">Bei Fragen: nebi6304@gmail.com</div>
-<script>
-  <!DOCTYPE html>
-<html lang="de">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hunde-Stammbaum & KI Analyse</title>
 <style>
-/* --- Allgemeines Layout --- */
 body {
 font-family: Arial, sans-serif;
 background-image: url('https://images.unsplash.com/photo-1558788353-f76d92427f16');
@@ -133,6 +34,7 @@ padding: 20px;
 border-radius: 15px;
 min-width: 300px;
 max-width: 700px;
+margin: 10px;
 }
 
 .node {
@@ -148,7 +50,11 @@ transition: background-color 0.3s;
 background-color: rgba(255,255,255,0.2);
 }
 
-/* --- KI Eingabebereich --- */
+.child-nodes {
+margin-left: 15px;
+display: none;
+}
+
 .ki-panel {
 background-color: rgba(0,0,0,0.6);
 margin-top: 20px;
@@ -197,7 +103,6 @@ border-radius: 8px;
 min-height: 50px;
 }
 
-/* --- Mobilfreundlich --- */
 @media (max-width: 768px){
 .container {
 flex-direction: column;
@@ -215,19 +120,28 @@ width: 90%;
 
 <div class="container">
 
-<!-- Stammbaum -->
-<div class="tree" id="tree">
+<!-- Interaktiver Stammbaum -->
+<div class="tree">
 <div class="node">Labrador Retriever
+<div class="child-nodes">
 <div class="node">Sitzend</div>
 <div class="node">Stehend</div>
+<div class="node">Spielend</div>
+</div>
 </div>
 <div class="node">Deutscher Schäferhund
-<div class="node">Spielend</div>
+<div class="child-nodes">
 <div class="node">Wachsam</div>
+<div class="node">Knurrend</div>
+<div class="node">Liegt</div>
+</div>
 </div>
 <div class="node">Französische Bulldogge
+<div class="child-nodes">
 <div class="node">Liegt</div>
+<div class="node">Spielend</div>
 <div class="node">Knurrt</div>
+</div>
 </div>
 <!-- Weitere Rassen hier hinzufügen -->
 </div>
@@ -244,158 +158,10 @@ width: 90%;
 </div>
 
 <script>
-<!DOCTYPE html>
-<html lang="de">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hunde-Stammbaum & KI Analyse</title>
-<style>
-/* --- Allgemeines Layout --- */
-body {
-font-family: Arial, sans-serif;
-background-image: url('https://images.unsplash.com/photo-1558788353-f76d92427f16');
-background-size: cover;
-background-position: center;
-color: white;
-margin: 0;
-padding: 0;
-}
+// ================== ULTRA KI + Baum Script ==================
 
-h1 {
-text-align: center;
-padding: 20px;
-background-color: rgba(0,0,0,0.6);
-}
-
-.container {
-display: flex;
-flex-wrap: wrap;
-justify-content: center;
-padding: 20px;
-}
-
-.tree {
-background-color: rgba(0,0,0,0.5);
-padding: 20px;
-border-radius: 15px;
-min-width: 300px;
-max-width: 700px;
-}
-
-.node {
-margin: 10px 0;
-padding: 8px;
-background-color: rgba(255,255,255,0.1);
-border-radius: 8px;
-cursor: pointer;
-transition: background-color 0.3s;
-}
-
-.node:hover {
-background-color: rgba(255,255,255,0.2);
-}
-
-/* --- KI Eingabebereich --- */
-.ki-panel {
-background-color: rgba(0,0,0,0.6);
-margin-top: 20px;
-padding: 15px;
-border-radius: 12px;
-max-width: 700px;
-margin-left: auto;
-margin-right: auto;
-}
-
-input[type="file"], input[type="text"] {
-width: 100%;
-margin: 5px 0;
-padding: 8px;
-border-radius: 8px;
-border: none;
-}
-
-button {
-width: 100%;
-padding: 10px;
-margin-top: 5px;
-background-color: #1e90ff;
-color: white;
-border: none;
-border-radius: 8px;
-cursor: pointer;
-font-weight: bold;
-}
-
-button:hover {
-background-color: #3ea0ff;
-}
-
-#preview {
-width: 100%;
-margin-top: 10px;
-border-radius: 8px;
-}
-
-#antwort {
-margin-top: 10px;
-padding: 10px;
-background-color: rgba(255,255,255,0.1);
-border-radius: 8px;
-min-height: 50px;
-}
-
-/* --- Mobilfreundlich --- */
-@media (max-width: 768px){
-.container {
-flex-direction: column;
-align-items: center;
-}
-.tree, .ki-panel {
-width: 90%;
-}
-}
-</style>
-</head>
-<body>
-
-<h1>Hunde-Stammbaum & KI Analyse</h1>
-
-<div class="container">
-
-<!-- Stammbaum -->
-<div class="tree" id="tree">
-<div class="node">Labrador Retriever
-<div class="node">Sitzend</div>
-<div class="node">Stehend</div>
-</div>
-<div class="node">Deutscher Schäferhund
-<div class="node">Spielend</div>
-<div class="node">Wachsam</div>
-</div>
-<div class="node">Französische Bulldogge
-<div class="node">Liegt</div>
-<div class="node">Knurrt</div>
-</div>
-<!-- Weitere Rassen hier hinzufügen -->
-</div>
-
-<!-- KI Panel -->
-<div class="ki-panel">
-<input type="file" id="upload" accept="image/*,video/*">
-<input type="text" id="search" placeholder="Frage über deinen Hund">
-<button id="analyzeBtn">Analysieren</button>
-<img id="preview" src="" alt="Vorschau">
-<div id="antwort"></div>
-</div>
-
-</div>
-
-<script>// ================== Perfektes Hunde-KI + Stammbaum Script ==================
-
-// --- Interaktiver Stammbaum ---
+// Baum Interaktivität
 const nodes = document.querySelectorAll('.node');
-
 nodes.forEach(node => {
 node.addEventListener('click', () => {
 const child = node.querySelector('.child-nodes');
@@ -405,7 +171,7 @@ child.style.display = child.style.display === 'none' ? 'block' : 'none';
 });
 });
 
-// --- KI Analyse ---
+// KI Analyse
 document.getElementById("analyzeBtn").addEventListener("click", analyse);
 
 async function analyse() {
@@ -448,7 +214,7 @@ console.error(err);
 }
 }
 
-// --- Hilfsfunktionen ---
+// Hilfsfunktionen
 async function fileToBase64(file){
 return new Promise(resolve=>{
 const reader = new FileReader();
@@ -476,6 +242,4 @@ resolve(canvas.toDataURL("image/jpeg"));
 </script>
 
 </body>
-</html>
-</script>
 </html>
