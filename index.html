@@ -23,6 +23,38 @@ header{padding:20px;text-align:center;font-size:28px;font-weight:bold;background
 .mindmap{margin-top:15px;background:#f7f7f7;border-radius:14px;padding:15px;border:2px solid #222;}
 .mapItem{display:inline-block;margin:5px;padding:10px 14px;border-radius:12px;background:#333;color:white;}
 .footer{position:fixed;bottom:10px;right:20px;background:rgba(0,0,0,0.85);padding:8px 12px;border-radius:10px;font-size:12px;color:white;}
+
+/* Mobile Anpassung */
+@media only screen and (max-width: 768px) {
+.container {
+flex-direction: column; /* Sidebar über Main */
+height: auto;
+}
+.sidebar {
+width: 100%;
+max-height: 200px; /* Sidebar oben, scrollen möglich */
+overflow-x: auto;
+}
+.main {
+width: 100%;
+padding: 10px;
+}
+.search {
+font-size: 14px;
+padding: 10px;
+}
+.tree button, .sidebar button {
+font-size: 14px;
+padding: 10px;
+}
+.card {
+padding: 15px;
+}
+.mindmap .mapItem {
+font-size: 12px;
+padding: 6px 10px;
+}
+}
 </style>
 </head>
 <body>
