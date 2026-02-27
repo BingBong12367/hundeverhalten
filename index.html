@@ -391,9 +391,21 @@ width: 90%;
 
 </div>
 
-<script>
-// ==================== ULTRA KI SCRIPT ====================
+<script>// ================== Perfektes Hunde-KI + Stammbaum Script ==================
 
+// --- Interaktiver Stammbaum ---
+const nodes = document.querySelectorAll('.node');
+
+nodes.forEach(node => {
+node.addEventListener('click', () => {
+const child = node.querySelector('.child-nodes');
+if (child) {
+child.style.display = child.style.display === 'none' ? 'block' : 'none';
+}
+});
+});
+
+// --- KI Analyse ---
 document.getElementById("analyzeBtn").addEventListener("click", analyse);
 
 async function analyse() {
@@ -436,6 +448,7 @@ console.error(err);
 }
 }
 
+// --- Hilfsfunktionen ---
 async function fileToBase64(file){
 return new Promise(resolve=>{
 const reader = new FileReader();
