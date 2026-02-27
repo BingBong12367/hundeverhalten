@@ -96,61 +96,79 @@ padding: 6px 10px;
 </div>
 <div class="footer">Bei Fragen: nebi6304@gmail.com</div>
 <script>
-let breed='Unbekannt';
-let history=[];
-let breeds=['Labrador','Schäferhund','Border Collie','Golden Retriever','Bulldogge','Husky','Dalmatiner','Dackel','Mischling'];
+// ===== KI BILDERKENNUNG ULTRA VERSION =====
 
-function selectBreed(b){breed=b;updateTree();analyseText();}
-function addBreed(){let name=prompt('Neue Hunderasse eingeben:');if(!name)return;breeds.push(name);alert('Rasse hinzugefügt: '+name);updateTree();}
-function updateTree(){
-let tree=document.getElementById('tree');
-tree.innerHTML='';
-let actions=['sitzt','liegt','steht','spielt','knurrt','rennt','wedelt','schläft','springt','schnüffelt'];
-actions.forEach(a=>{
-let btn=document.createElement('button');
-btn.innerText=a;
-btn.onclick=()=>quick(a);
-tree.appendChild(btn);
+// Tensorflow automatisch laden
+const script1 = document.createElement("script");
+script1.src = "https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.16.0";
+document.head.appendChild(script1);
+
+const script2 = document.createElement("script");
+script2.src = "https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet";
+document.head.appendChild(script2);
+
+
+// Warten bis alles geladen ist
+script2.onload = async () => {
+
+const status = document.getElementById("result");
+status.innerText = "KI wird geladen...";
+
+// Modell laden
+const model = await mobilenet.load();
+
+status.innerText = "KI bereit ✅ Bild auswählen.";
+
+// Upload erkennen
+document
+.getElementById("imageUpload")
+.addEventListener("change", async function (event) {
+
+const file = event.target.files[0];
+if (!file) return;
+
+const img = document.getElementById("preview");
+
+img.src = URL.createObjectURL(file);
+
+img.onload = async () => {
+
+status.innerText = "Analysiere Bild... 🔎";
+
+try {
+
+const predictions = await model.classify(img);
+
+if (!predictions.length) {
+status.innerText = "Nichts erkannt.";
+return;
+}
+
+let text = "Erkannt:\n";
+
+predictions.forEach(p => {
+
+const percent = (p.probability * 100).toFixed(1);
+
+text += `${p.className} (${percent}%)\n`;
+
 });
+
+status.innerText = text;
+
+} catch (error) {
+
+status.innerText = "Fehler bei Analyse.";
+
+console.error(error);
+
 }
-function quick(text){document.getElementById('search').value=text;analyseText();}
-function analyseText(){
-let input=document.getElementById('search').value.toLowerCase();
-let mood=[],stress=20;
-let mindmap=document.getElementById('mindmap');mindmap.innerHTML='<b>Mindmap Analyse:</b>';
-if(input.includes('wedel')||input.includes('spielt')){mood.push('😊 freundlich / verspielt');stress-=10;addMap('Freude');}
-if(input.includes('liegt')||input.includes('schläft')){mood.push('😴 entspannt');stress-=15;addMap('Ruhe');}
-if(input.includes('knurr')||input.includes('bellt')){mood.push('⚠️ Warnsignal');stress+=25;addMap('Aggression');}
-if(input.includes('ohren angelegt')||input.includes('zitter')){mood.push('😟 Angst / Unsicherheit');stress+=20;addMap('Unsicherheit');}
-if(input.includes('rennt')||input.includes('springt')||input.includes('schnüffelt')){mood.push('⚡ hohe Aktivität');stress+=5;addMap('Aktivität');}
-if(mood.length===0){mood.push('🤖 Dieses Verhalten wird noch erforscht. Die KI sammelt Hinweise.');addMap('Unbekannt / Forschung');}
-stress=Math.max(0,Math.min(100,stress));
-document.getElementById('result').innerHTML=`Rasse: ${breed}<br>Gefühle: ${mood.join(', ')}<br>Stresslevel: ${stress}%`;
+
+};
+
+});
+
 }
-function addMap(text){let span=document.createElement('span');span.className='mapItem';span.innerText=text;document.getElementById('mindmap').appendChild(span);}
-function handleUpload(e){
-let file=e.target.files[0];
-if(!file)return;
-let preview=document.getElementById('preview');
-preview.innerHTML='';
-if(file.type.startsWith('image')){
-let img=document.createElement('img');
-img.src=URL.createObjectURL(file);
-preview.appendChild(img);
-simulateVisionAI('Bild');
-}
-if(file.type.startsWith('video')){
-let vid=document.createElement('video');
-vid.src=URL.createObjectURL(file);
-vid.controls=true;
-preview.appendChild(vid);
-simulateVisionAI('Video');
-}
-}
-function simulateVisionAI(type){setTimeout(()=>{let guesses=['Körperhaltung analysiert','Aufmerksamkeit erkannt','Spielbereitschaft erkannt','Schwanzposition analysiert','Ohrenposition erkannt'];let guess=guesses[Math.floor(Math.random()*guesses.length)];let res=document.getElementById('result');res.innerHTML+=`<br><br>🔎 ${type}-Analyse:<br>${guess}`;},1500);}
-function showHistory(){alert(JSON.stringify(history.slice(-20),null,2));}
-function exportHistory(){let text='Hundeverhalten Verlauf\n\n';history.forEach(h=>{text+=`${h.time || 'Keine Zeit'} | ${h.breed || 'Keine Rasse'} | ${h.action || 'Keine Aktion'}\n`;});let blob=new Blob([text],{type:'text/plain'});let a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='hundeverhalten.txt';a.click();}
-updateTree();
 </script>
 </body>
 </html>
