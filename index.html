@@ -244,6 +244,154 @@ width: 90%;
 </div>
 
 <script>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hunde-Stammbaum & KI Analyse</title>
+<style>
+/* --- Allgemeines Layout --- */
+body {
+font-family: Arial, sans-serif;
+background-image: url('https://images.unsplash.com/photo-1558788353-f76d92427f16');
+background-size: cover;
+background-position: center;
+color: white;
+margin: 0;
+padding: 0;
+}
+
+h1 {
+text-align: center;
+padding: 20px;
+background-color: rgba(0,0,0,0.6);
+}
+
+.container {
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+padding: 20px;
+}
+
+.tree {
+background-color: rgba(0,0,0,0.5);
+padding: 20px;
+border-radius: 15px;
+min-width: 300px;
+max-width: 700px;
+}
+
+.node {
+margin: 10px 0;
+padding: 8px;
+background-color: rgba(255,255,255,0.1);
+border-radius: 8px;
+cursor: pointer;
+transition: background-color 0.3s;
+}
+
+.node:hover {
+background-color: rgba(255,255,255,0.2);
+}
+
+/* --- KI Eingabebereich --- */
+.ki-panel {
+background-color: rgba(0,0,0,0.6);
+margin-top: 20px;
+padding: 15px;
+border-radius: 12px;
+max-width: 700px;
+margin-left: auto;
+margin-right: auto;
+}
+
+input[type="file"], input[type="text"] {
+width: 100%;
+margin: 5px 0;
+padding: 8px;
+border-radius: 8px;
+border: none;
+}
+
+button {
+width: 100%;
+padding: 10px;
+margin-top: 5px;
+background-color: #1e90ff;
+color: white;
+border: none;
+border-radius: 8px;
+cursor: pointer;
+font-weight: bold;
+}
+
+button:hover {
+background-color: #3ea0ff;
+}
+
+#preview {
+width: 100%;
+margin-top: 10px;
+border-radius: 8px;
+}
+
+#antwort {
+margin-top: 10px;
+padding: 10px;
+background-color: rgba(255,255,255,0.1);
+border-radius: 8px;
+min-height: 50px;
+}
+
+/* --- Mobilfreundlich --- */
+@media (max-width: 768px){
+.container {
+flex-direction: column;
+align-items: center;
+}
+.tree, .ki-panel {
+width: 90%;
+}
+}
+</style>
+</head>
+<body>
+
+<h1>Hunde-Stammbaum & KI Analyse</h1>
+
+<div class="container">
+
+<!-- Stammbaum -->
+<div class="tree" id="tree">
+<div class="node">Labrador Retriever
+<div class="node">Sitzend</div>
+<div class="node">Stehend</div>
+</div>
+<div class="node">Deutscher Schäferhund
+<div class="node">Spielend</div>
+<div class="node">Wachsam</div>
+</div>
+<div class="node">Französische Bulldogge
+<div class="node">Liegt</div>
+<div class="node">Knurrt</div>
+</div>
+<!-- Weitere Rassen hier hinzufügen -->
+</div>
+
+<!-- KI Panel -->
+<div class="ki-panel">
+<input type="file" id="upload" accept="image/*,video/*">
+<input type="text" id="search" placeholder="Frage über deinen Hund">
+<button id="analyzeBtn">Analysieren</button>
+<img id="preview" src="" alt="Vorschau">
+<div id="antwort"></div>
+</div>
+
+</div>
+
+<script>
 // ==================== ULTRA KI SCRIPT ====================
 
 document.getElementById("analyzeBtn").addEventListener("click", analyse);
@@ -315,4 +463,6 @@ resolve(canvas.toDataURL("image/jpeg"));
 </script>
 
 </body>
+</html>
+</script>
 </html>
