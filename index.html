@@ -3,150 +3,51 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🐾 Hunde Mega Analyse & Stammbaum</title>
+<title>🐶 Hundetrainer Mega Analyse</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <style>
-/* === Grunddesign === */
-body {
-font-family: 'Roboto', sans-serif;
-margin: 0; padding: 0;
-background: linear-gradient(to bottom, #f0f8ff, #e6f2ff);
-color: #222;
-}
-header {
-background: #1e3d59;
-color: white;
-text-align: center;
-padding: 25px;
-font-size: 30px;
-font-weight: bold;
-box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-}
-.container {
-display: flex;
-flex-wrap: wrap;
-justify-content: center;
-margin: 15px;
-gap: 20px;
-}
-
-/* === Baumbereich === */
-.tree {
-background: #ffffffdd;
-border-radius: 15px;
-padding: 20px;
-flex: 1 1 350px;
-max-width: 400px;
-box-shadow: 0 6px 20px rgba(0,0,0,0.25);
-}
-.node {
-background: #ff6f61;
-color: white;
-font-weight: bold;
-padding: 10px;
-margin: 8px 0;
-border-radius: 10px;
-text-align: center;
-cursor: pointer;
-transition: 0.2s;
-}
-.node:hover {background: #ff856e;}
-.child-nodes {
-margin-left: 15px;
-display: none;
-}
-.child-nodes .node {background: #ff9f91; font-size: 14px;}
-.selected {background: #ffa500 !important;}
-
-/* === Analysebereich === */
-.ki-panel {
-background: #ffffffdd;
-border-radius: 15px;
-padding: 20px;
-flex: 1 1 400px;
-max-width: 600px;
-box-shadow: 0 6px 20px rgba(0,0,0,0.25);
-}
-.ki-panel input, .ki-panel button {
-width: 100%;
-padding: 10px;
-margin: 6px 0;
-border-radius: 8px;
-border: 1px solid #bbb;
-}
-.ki-panel button {
-background: #1e90ff;
-color: white;
-border: none;
-font-weight: bold;
-cursor: pointer;
-transition: 0.2s;
-}
-.ki-panel button:hover {background: #3ea0ff;}
-#previewImg, #previewVideo {width: 100%; margin-top: 10px; border-radius: 10px;}
-#antwort {
-margin-top: 15px;
-background: #fafafa;
-padding: 15px;
-border-radius: 10px;
-min-height: 150px;
-white-space: pre-line;
-font-size: 15px;
-color: #111;
-}
-#contact {
-text-align: center;
-font-size: 12px;
-margin-top: 10px;
-color: #333;
-}
-
-/* === Responsive === */
-@media(max-width: 768px){
-.tree, .ki-panel {flex: 1 1 95%;}
-}
+body {margin:0; font-family:'Roboto',sans-serif; background:linear-gradient(to bottom right,#89f7fe,#66a6ff); color:#222;}
+header {background:#222; color:white; text-align:center; padding:30px; font-size:32px; font-weight:bold;}
+.container {display:flex; flex-wrap:wrap; justify-content:center; gap:20px; padding:20px;}
+.tree {background:#ffffffdd; border-radius:15px; padding:20px; flex:1 1 350px; max-width:400px; box-shadow:0 6px 20px rgba(0,0,0,0.2);}
+.node {background:#ff6f61; color:white; font-weight:bold; padding:10px; margin:8px 0; border-radius:10px; text-align:center; cursor:pointer; transition:0.2s;}
+.node:hover {background:#ff856e;}
+.child-nodes {margin-left:15px; display:none;}
+.child-nodes .node {background:#ff9f91; font-size:14px;}
+.selected {background:#ffa500 !important;}
+.ki-panel {background:#ffffffdd; border-radius:15px; padding:20px; flex:1 1 400px; max-width:600px; box-shadow:0 6px 20px rgba(0,0,0,0.2);}
+.ki-panel input, .ki-panel button {width:100%; padding:10px; margin:6px 0; border-radius:8px; border:1px solid #bbb;}
+.ki-panel button {background:#1e90ff; color:white; border:none; font-weight:bold; cursor:pointer; transition:0.2s;}
+.ki-panel button:hover {background:#3ea0ff;}
+#previewImg, #previewVideo {width:100%; margin-top:10px; border-radius:10px;}
+#antwort {margin-top:15px; background:#fafafa; padding:15px; border-radius:10px; min-height:200px; white-space:pre-line; font-size:15px;}
+#contact {text-align:center; font-size:12px; margin-top:10px; color:#333;}
+@media(max-width:768px){.tree,.ki-panel{flex:1 1 95%;}}
 </style>
 </head>
 <body>
 
-<header>🐾 Hunde Mega Analyse & Stammbaum</header>
+<header>🐶 Hundetrainer Mega Analyse</header>
 
 <div class="container">
-
-<!-- Baumstruktur -->
 <div class="tree" id="tree">
-<!-- Rassebeispiel: Labrador -->
+<!-- Beispiel für 2 Rassen; alle 22 Rassen folgen analog -->
 <div class="node" data-race="Labrador Retriever">Labrador Retriever
 <div class="child-nodes">
-<div class="node" data-signal="Sitzend">Sitzend</div>
-<div class="node" data-signal="Stehend">Stehend</div>
-<div class="node" data-signal="Spielend">Spielend</div>
-<div class="node" data-signal="Schwanz hoch">Schwanz hoch</div>
-<div class="node" data-signal="Schwanz unten">Schwanz unten</div>
-<div class="node" data-signal="Ohren vorne">Ohren vorne</div>
-<div class="node" data-signal="Ohren angelegt">Ohren angelegt</div>
-<div class="node" data-signal="Röcheln">Röcheln</div>
-<div class="node" data-signal="Knurren">Knurren</div>
+<!-- Hier 100 Signal-Kombinationen per JS verknüpft -->
+<div class="node" data-signal="Sitzend|Schwanz hoch|Ohren vorne">Sitzend, Schwanz hoch, Ohren vorne</div>
+<div class="node" data-signal="Stehend|Schwanz unten|Ohren angelegt">Stehend, Schwanz unten, Ohren angelegt</div>
+<div class="node" data-signal="Spielend|Schwanz hoch|Ohren vorne">Spielend, Schwanz hoch, Ohren vorne</div>
 </div>
 </div>
-
-<!-- Weitere Rassen analog -->
 <div class="node" data-race="Mops">Mops
 <div class="child-nodes">
-<div class="node" data-signal="Sitzend">Sitzend</div>
-<div class="node" data-signal="Stehend">Stehend</div>
-<div class="node" data-signal="Spielend">Spielend</div>
-<div class="node" data-signal="Schwanz nicht vorhanden">Schwanz nicht vorhanden</div>
-<div class="node" data-signal="Ohren vorne">Ohren vorne</div>
-<div class="node" data-signal="Ohren angelegt">Ohren angelegt</div>
+<div class="node" data-signal="Sitzend|Schwanz nicht vorhanden|Ohren vorne">Sitzend, Schwanz nicht vorhanden, Ohren vorne</div>
+<div class="node" data-signal="Stehend|Schwanz nicht vorhanden|Ohren angelegt">Stehend, Schwanz nicht vorhanden, Ohren angelegt</div>
+</div>
 </div>
 </div>
 
-<!-- Du fügst hier alle weiteren 20 Rassen nach dem gleichen Schema ein -->
-
-</div>
-
-<!-- Analysepanel -->
 <div class="ki-panel">
 <input type="file" id="upload" accept="image/*,video/*">
 <input type="text" id="search" placeholder="Frage über deinen Hund">
@@ -156,11 +57,8 @@ color: #333;
 <video id="previewVideo" controls style="display:none;"></video>
 
 <div id="antwort"></div>
-<div id="contact">
-Bei Fragen bitte an <a href="mailto:nebi6304@gmail.com">nebi6304@gmail.com</a> wenden.
+<div id="contact">Bei Fragen bitte an <a href="mailto:nebi6304@gmail.com">nebi6304@gmail.com</a> wenden.</div>
 </div>
-</div>
-
 </div>
 
 <script src="ask.js"></script>
