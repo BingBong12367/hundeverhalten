@@ -96,159 +96,226 @@ padding: 6px 10px;
 </div>
 <div class="footer">Bei Fragen: nebi6304@gmail.com</div>
 <script>
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="de">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hundeverhalten Offline Premium</title>
+<title>Hunde-Stammbaum & KI Analyse</title>
 <style>
-body {margin:0;font-family:'Segoe UI',Arial,sans-serif;background:#111;color:#fff;overflow-x:hidden;}
-header{padding:20px;text-align:center;font-size:28px;font-weight:bold;background:rgba(0,0,0,0.85);}
-.container{display:flex;height:calc(100vh - 70px);}
-.sidebar{width:300px;background:rgba(0,0,0,0.9);padding:15px;overflow-y:auto;}
-.sidebar h3{color:#fff;margin-bottom:10px;}
-.sidebar button{width:100%;padding:12px;margin:5px 0;background:#222;color:#fff;border:none;border-radius:10px;cursor:pointer;}
-.sidebar button:hover{opacity:0.85;}
-.main{flex:1;padding:20px;overflow-y:auto;background:rgba(255,255,255,0.95);color:#111;border-left:2px solid #222;background-image:url('https://images.unsplash.com/photo-1561948955-57064d39d3e0?auto=format&fit=crop&w=1400&q=80');background-size:cover;background-position:center;}
-.search{width:100%;padding:14px;font-size:16px;border-radius:10px;border:1px solid #333;margin-bottom:20px;}
-.card{background:rgba(255,255,255,0.9);padding:20px;margin-top:15px;border-radius:15px;box-shadow:0 6px 15px rgba(0,0,0,0.25);}
-.tree button{background:#333;color:#fff;border:none;padding:12px;margin:5px;border-radius:8px;cursor:pointer;}
-.tree button:hover{opacity:0.85;}
-.upload input{margin-top:10px;}
-.preview img,.preview video{max-width:100%;border-radius:12px;margin-top:10px;}
-.feeling{margin-top:10px;padding:12px;border-radius:12px;border:1px solid #222;font-weight:bold;background:#eee;color:#111;}
-.mindmap{margin-top:15px;background:#f7f7f7;border-radius:14px;padding:15px;border:2px solid #222;}
-.mapItem{display:inline-block;margin:5px;padding:10px 14px;border-radius:12px;background:#333;color:white;}
-.footer{position:fixed;bottom:10px;right:20px;background:rgba(0,0,0,0.85);padding:8px 12px;border-radius:10px;font-size:12px;color:white;}
+/* --- Allgemeines Layout --- */
+body {
+font-family: Arial, sans-serif;
+background-image: url('https://images.unsplash.com/photo-1558788353-f76d92427f16');
+background-size: cover;
+background-position: center;
+color: white;
+margin: 0;
+padding: 0;
+}
 
-/* Mobile Anpassung */
-@media only screen and (max-width: 768px) {
+h1 {
+text-align: center;
+padding: 20px;
+background-color: rgba(0,0,0,0.6);
+}
+
 .container {
-flex-direction: column; /* Sidebar über Main */
-height: auto;
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+padding: 20px;
 }
-.sidebar {
-width: 100%;
-max-height: 200px; /* Sidebar oben, scrollen möglich */
-overflow-x: auto;
+
+.tree {
+background-color: rgba(0,0,0,0.5);
+padding: 20px;
+border-radius: 15px;
+min-width: 300px;
+max-width: 700px;
 }
-.main {
-width: 100%;
-padding: 10px;
+
+.node {
+margin: 10px 0;
+padding: 8px;
+background-color: rgba(255,255,255,0.1);
+border-radius: 8px;
+cursor: pointer;
+transition: background-color 0.3s;
 }
-.search {
-font-size: 14px;
-padding: 10px;
+
+.node:hover {
+background-color: rgba(255,255,255,0.2);
 }
-.tree button, .sidebar button {
-font-size: 14px;
-padding: 10px;
-}
-.card {
+
+/* --- KI Eingabebereich --- */
+.ki-panel {
+background-color: rgba(0,0,0,0.6);
+margin-top: 20px;
 padding: 15px;
+border-radius: 12px;
+max-width: 700px;
+margin-left: auto;
+margin-right: auto;
 }
-.mindmap .mapItem {
-font-size: 12px;
-padding: 6px 10px;
+
+input[type="file"], input[type="text"] {
+width: 100%;
+margin: 5px 0;
+padding: 8px;
+border-radius: 8px;
+border: none;
+}
+
+button {
+width: 100%;
+padding: 10px;
+margin-top: 5px;
+background-color: #1e90ff;
+color: white;
+border: none;
+border-radius: 8px;
+cursor: pointer;
+font-weight: bold;
+}
+
+button:hover {
+background-color: #3ea0ff;
+}
+
+#preview {
+width: 100%;
+margin-top: 10px;
+border-radius: 8px;
+}
+
+#antwort {
+margin-top: 10px;
+padding: 10px;
+background-color: rgba(255,255,255,0.1);
+border-radius: 8px;
+min-height: 50px;
+}
+
+/* --- Mobilfreundlich --- */
+@media (max-width: 768px){
+.container {
+flex-direction: column;
+align-items: center;
+}
+.tree, .ki-panel {
+width: 90%;
 }
 }
 </style>
 </head>
 <body>
-<header>🐕 Hundeverhalten Offline Premium — Vollständig Kostenlos</header>
-<div class="container">
-<div class="sidebar">
-<h3>Hunderassen</h3>
-<button onclick="selectBreed('Labrador')">Labrador</button>
-<button onclick="selectBreed('Schäferhund')">Schäferhund</button>
-<button onclick="selectBreed('Border Collie')">Border Collie</button>
-<button onclick="selectBreed('Golden Retriever')">Golden Retriever</button>
-<button onclick="selectBreed('Bulldogge')">Bulldogge</button>
-<button onclick="selectBreed('Husky')">Husky</button>
-<button onclick="selectBreed('Dalmatiner')">Dalmatiner</button>
-<button onclick="selectBreed('Dackel')">Dackel</button>
-<button onclick="selectBreed('Mischling')">Mischling</button>
-<hr>
-<button onclick="addBreed()">+ Neue Rasse</button>
-<button onclick="showHistory()">Verlauf anzeigen</button>
-<button onclick="exportHistory()">Export TXT</button>
-</div>
-<div class="main">
-<input id="search" class="search" placeholder="Frage an die KI, z.B. 'Warum wedelt mein Hund?'" oninput="analyseText()">
-<div class="card">
-<h3>Interaktiver Baum</h3>
-<div class="tree" id="tree"></div>
-</div>
-<div class="card upload">
-<h3>📷 Bild / 🎥 Video hochladen (Simuliert)</h3>
-<input type="file" accept="image/*,video/*" onchange="handleUpload(event)">
-<div class="preview" id="preview"></div>
-</div>
-<div class="card">
-<h3>KI Analyse & Wissenschaftliche Einschätzung</h3>
-<div id="result" class="feeling">Noch keine Analyse.</div>
-<div id="mindmap" class="mindmap"><b>Mindmap Analyse:</b></div>
-</div>
-</div>
-</div>
-<div class="footer">Bei Fragen: nebi6304@gmail.com</div>
-<script>
-let breed='Unbekannt';
-let history=[];
-let breeds=['Labrador','Schäferhund','Border Collie','Golden Retriever','Bulldogge','Husky','Dalmatiner','Dackel','Mischling'];
 
-function selectBreed(b){breed=b;updateTree();analyseText();}
-function addBreed(){let name=prompt('Neue Hunderasse eingeben:');if(!name)return;breeds.push(name);alert('Rasse hinzugefügt: '+name);updateTree();}
-function updateTree(){
-let tree=document.getElementById('tree');
-tree.innerHTML='';
-let actions=['sitzt','liegt','steht','spielt','knurrt','rennt','wedelt','schläft','springt','schnüffelt'];
-actions.forEach(a=>{
-let btn=document.createElement('button');
-btn.innerText=a;
-btn.onclick=()=>quick(a);
-tree.appendChild(btn);
+<h1>Hunde-Stammbaum & KI Analyse</h1>
+
+<div class="container">
+
+<!-- Stammbaum -->
+<div class="tree" id="tree">
+<div class="node">Labrador Retriever
+<div class="node">Sitzend</div>
+<div class="node">Stehend</div>
+</div>
+<div class="node">Deutscher Schäferhund
+<div class="node">Spielend</div>
+<div class="node">Wachsam</div>
+</div>
+<div class="node">Französische Bulldogge
+<div class="node">Liegt</div>
+<div class="node">Knurrt</div>
+</div>
+<!-- Weitere Rassen hier hinzufügen -->
+</div>
+
+<!-- KI Panel -->
+<div class="ki-panel">
+<input type="file" id="upload" accept="image/*,video/*">
+<input type="text" id="search" placeholder="Frage über deinen Hund">
+<button id="analyzeBtn">Analysieren</button>
+<img id="preview" src="" alt="Vorschau">
+<div id="antwort"></div>
+</div>
+
+</div>
+
+<script>
+// ==================== ULTRA KI SCRIPT ====================
+
+document.getElementById("analyzeBtn").addEventListener("click", analyse);
+
+async function analyse() {
+const file = document.getElementById("upload").files[0];
+const frage = document.getElementById("search").value;
+const output = document.getElementById("antwort");
+const preview = document.getElementById("preview");
+
+if(!frage && !file){
+output.innerText = "Bitte Frage eingeben oder Bild/Video hochladen!";
+return;
+}
+
+output.innerText = "KI analysiert... 🔍";
+
+let imageData = null;
+if(file){
+preview.src = URL.createObjectURL(file);
+if(file.type.startsWith("video")){
+imageData = await videoScreenshot(file);
+} else {
+imageData = await fileToBase64(file);
+}
+}
+
+try {
+const res = await fetch("/api/ask",{
+method: "POST",
+headers: {"Content-Type":"application/json"},
+body: JSON.stringify({question: frage, image: imageData})
+});
+
+const json = await res.json();
+const antwortText = json?.choices?.[0]?.message?.content || "Dies wird noch erforscht.";
+output.innerText = antwortText;
+
+} catch(err){
+output.innerText = "Fehler bei der KI-Analyse.";
+console.error(err);
+}
+}
+
+async function fileToBase64(file){
+return new Promise(resolve=>{
+const reader = new FileReader();
+reader.onload = () => resolve(reader.result);
+reader.readAsDataURL(file);
 });
 }
-function quick(text){document.getElementById('search').value=text;analyseText();}
-function analyseText(){
-let input=document.getElementById('search').value.toLowerCase();
-let mood=[],stress=20;
-let mindmap=document.getElementById('mindmap');mindmap.innerHTML='<b>Mindmap Analyse:</b>';
-if(input.includes('wedel')||input.includes('spielt')){mood.push('😊 freundlich / verspielt');stress-=10;addMap('Freude');}
-if(input.includes('liegt')||input.includes('schläft')){mood.push('😴 entspannt');stress-=15;addMap('Ruhe');}
-if(input.includes('knurr')||input.includes('bellt')){mood.push('⚠️ Warnsignal');stress+=25;addMap('Aggression');}
-if(input.includes('ohren angelegt')||input.includes('zitter')){mood.push('😟 Angst / Unsicherheit');stress+=20;addMap('Unsicherheit');}
-if(input.includes('rennt')||input.includes('springt')||input.includes('schnüffelt')){mood.push('⚡ hohe Aktivität');stress+=5;addMap('Aktivität');}
-if(mood.length===0){mood.push('🤖 Dieses Verhalten wird noch erforscht. Die KI sammelt Hinweise.');addMap('Unbekannt / Forschung');}
-stress=Math.max(0,Math.min(100,stress));
-document.getElementById('result').innerHTML=`Rasse: ${breed}<br>Gefühle: ${mood.join(', ')}<br>Stresslevel: ${stress}%`;
+
+async function videoScreenshot(videoFile){
+return new Promise(resolve=>{
+const video = document.createElement("video");
+video.src = URL.createObjectURL(videoFile);
+video.currentTime = 1;
+video.muted = true;
+video.addEventListener("loadeddata", ()=>{
+const canvas = document.createElement("canvas");
+canvas.width = video.videoWidth;
+canvas.height = video.videoHeight;
+const ctx = canvas.getContext("2d");
+ctx.drawImage(video,0,0);
+resolve(canvas.toDataURL("image/jpeg"));
+});
+});
 }
-function addMap(text){let span=document.createElement('span');span.className='mapItem';span.innerText=text;document.getElementById('mindmap').appendChild(span);}
-function handleUpload(e){
-let file=e.target.files[0];
-if(!file)return;
-let preview=document.getElementById('preview');
-preview.innerHTML='';
-if(file.type.startsWith('image')){
-let img=document.createElement('img');
-img.src=URL.createObjectURL(file);
-preview.appendChild(img);
-simulateVisionAI('Bild');
-}
-if(file.type.startsWith('video')){
-let vid=document.createElement('video');
-vid.src=URL.createObjectURL(file);
-vid.controls=true;
-preview.appendChild(vid);
-simulateVisionAI('Video');
-}
-}
-function simulateVisionAI(type){setTimeout(()=>{let guesses=['Körperhaltung analysiert','Aufmerksamkeit erkannt','Spielbereitschaft erkannt','Schwanzposition analysiert','Ohrenposition erkannt'];let guess=guesses[Math.floor(Math.random()*guesses.length)];let res=document.getElementById('result');res.innerHTML+=`<br><br>🔎 ${type}-Analyse:<br>${guess}`;},1500);}
-function showHistory(){alert(JSON.stringify(history.slice(-20),null,2));}
-function exportHistory(){let text='Hundeverhalten Verlauf\n\n';history.forEach(h=>{text+=`${h.time || 'Keine Zeit'} | ${h.breed || 'Keine Rasse'} | ${h.action || 'Keine Aktion'}\n`;});let blob=new Blob([text],{type:'text/plain'});let a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='hundeverhalten.txt';a.click();}
-updateTree();
+</script>
+
+</body>
+</html>
 </script>
 </body>
 </html>
