@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hunde‑KI & Interaktiver Stammbaum</title>
-
+<title>Hunde Stammbaum & KI Analyse Mega-Version</title>
 <style>
 body {
 font-family: Arial, sans-serif;
@@ -18,7 +17,7 @@ padding: 0;
 header {
 text-align: center;
 padding: 18px;
-font-size: 26px;
+font-size: 28px;
 font-weight: bold;
 background: rgba(0,0,0,0.7);
 color: white;
@@ -29,7 +28,7 @@ flex-wrap: wrap;
 justify-content: center;
 }
 .tree {
-background: rgba(255,255,255,0.85);
+background: rgba(255,255,255,0.9);
 border-radius: 12px;
 padding: 18px;
 margin: 15px;
@@ -47,15 +46,18 @@ font-weight: bold;
 text-align: center;
 }
 .child-nodes {
-margin-top: 4px;
+margin-left: 15px;
 display: none;
 }
 .child-nodes .node {
 background: #3ea0ff;
 font-size: 14px;
 }
+.selected {
+background: #ff9933 !important;
+}
 .ki-panel {
-background: rgba(255,255,255,0.9);
+background: rgba(255,255,255,0.95);
 padding: 15px;
 margin: 15px;
 border-radius: 12px;
@@ -88,8 +90,14 @@ margin-top: 12px;
 background: #fafafa;
 padding: 12px;
 border-radius: 8px;
-min-height: 60px;
+min-height: 80px;
 color: #111;
+}
+#contact {
+text-align: center;
+font-size: 12px;
+margin-top: 10px;
+color: #333;
 }
 @media (max-width: 768px) {
 .tree, .ki-panel {
@@ -97,144 +105,177 @@ width: 95%;
 }
 }
 </style>
-
 </head>
 <body>
 
-<header>🐕 Hunde KI & Interaktiver Stammbaum</header>
+<header>🐕 Hunde Stammbaum & KI Analyse Mega-Version</header>
 
 <div class="container">
 
-<!-- 👇 Interaktiver Stammbaum -->
-<div class="tree">
+<!-- Interaktiver Stammbaum -->
+<div class="tree" id="tree">
+
+<!-- Hunderassen Beispiele -->
 <div class="node" data-info="Labrador Retriever sind freundlich, aktiv, familienbezogen.">
 Labrador Retriever
 <div class="child-nodes">
-<div class="node" data-info="Ein sitzender Labrador nutzt Ruhe zum Beobachten.">Sitzend</div>
-<div class="node" data-info="Ein stehender Labrador ist aufmerksam.">Stehend</div>
-<div class="node" data-info="Labradore lieben spielen und apportieren.">Spielend</div>
+<div class="node" data-info="Sitzend: Beobachtet ruhig.">Sitzend</div>
+<div class="node" data-info="Stehend: Aufmerksam.">Stehend</div>
+<div class="node" data-info="Spielend: Spaß am Apportieren.">Spielend</div>
+<div class="node" data-info="Schwanz hoch: Freude.">Schwanz hoch</div>
+<div class="node" data-info="Schwanz unten: Ruhe/Unsicherheit.">Schwanz unten</div>
 </div>
 </div>
 
-<div class="node" data-info="Deutsche Schäferhunde sind intelligent und vielseitig.">
-Deutscher Schäferhund
+<div class="node" data-info="Mops: freundlich, verspielt, Schwanzkurz oder ohne Schwanz.">
+Mops
 <div class="child-nodes">
-<div class="node" data-info="Ein wachsender Schäferhund zeigt Aufmerksamkeit.">Wachsam</div>
-<div class="node" data-info="Knurren kann Unsicherheit oder Warnsignal bedeuten.">Knurrend</div>
-<div class="node" data-info="Wenn er liegt, ist er entspannt oder beobachtend.">Liegt</div>
+<div class="node" data-info="Sitzend: Beobachtet.">Sitzend</div>
+<div class="node" data-info="Stehend: Aufmerksam.">Stehend</div>
+<div class="node" data-info="Spielend: Aktiv.">Spielend</div>
+<div class="node" data-info="Keine Schwanzkommunikation möglich: wird schwerer zu interpretieren.">Schwanz nicht vorhanden</div>
 </div>
 </div>
 
-<div class="node" data-info="Französische Bulldoggen sind freundlich & verspielt.">
+<div class="node" data-info="Französische Bulldogge: freundlich, verspielt, oft keine Schwanzkommunikation.">
 Französische Bulldogge
 <div class="child-nodes">
-<div class="node" data-info="Liegt oft gemütlich und entspannt.">Liegt</div>
-<div class="node" data-info="Spielend erkundet er Umgebung & Spaß.">Spielend</div>
-<div class="node" data-info="Knurren kann Warnsignal oder Ärger zeigen.">Knurrend</div>
+<div class="node" data-info="Liegt: Entspannt.">Liegt</div>
+<div class="node" data-info="Spielend: Aktiv.">Spielend</div>
+<div class="node" data-info="Knurrend: Warnsignal.">Knurrend</div>
+<div class="node" data-info="Schwanz hoch/nicht vorhanden: Bei manchen nicht interpretierbar.">Schwanz nicht vorhanden</div>
 </div>
 </div>
 
+<!-- Weitere Rassen hier hinzufügen… -->
+
+<!-- Button um neue Rasse hinzuzufügen -->
+<button id="addRaceBtn">Neue Rasse hinzufügen</button>
+
 </div>
 
-<!-- 👇 KI Analyse Panel -->
+<!-- KI Panel -->
 <div class="ki-panel">
 <input type="file" id="upload" accept="image/*,video/*">
 <input type="text" id="search" placeholder="Stelle eine Frage über deinen Hund">
 <button id="analyzeBtn">Analysieren</button>
 
-<!-- Vorschau -->
 <img id="previewImg" style="display:none;">
 <video id="previewVideo" controls style="display:none;"></video>
 
 <div id="antwort"></div>
+<div id="contact">Bei Fragen bitte an <a href="mailto:nebi6304@gmail.com">nebi6304@gmail.com</a> wenden.</div>
 </div>
 
 </div>
 
 <script>
-// ⭐ Interaktiver Baum anzeigen / ausblenden
-document.querySelectorAll('.tree .node').forEach(node => {
-node.addEventListener('click', () => {
+// Interaktiver Baum + Mehrfachauswahl
+const selectedNodes = new Set();
+
+document.querySelectorAll('#tree .node').forEach(node => {
+node.addEventListener('click', (e) => {
+e.stopPropagation();
 const child = node.querySelector('.child-nodes');
-if (child) {
-child.style.display = child.style.display === 'block' ? 'none' : 'block';
+if (child) child.style.display = child.style.display === 'block' ? 'none' : 'block';
+
+if(selectedNodes.has(node)) {
+selectedNodes.delete(node);
+node.classList.remove('selected');
+} else {
+selectedNodes.add(node);
+node.classList.add('selected');
 }
-// Info aus dem data-info anzeigen
-const info = node.dataset.info;
-if (info) {
-document.getElementById('antwort').innerText = info;
-}
+
+let infoText = Array.from(selectedNodes).map(n => n.dataset.info).filter(Boolean).join('\n');
+document.getElementById('antwort').innerText = infoText;
 });
 });
 
-// ⭐ KI Analyse
+// Neue Rasse hinzufügen
+document.getElementById('addRaceBtn').addEventListener('click', () => {
+const name = prompt("Name der neuen Rasse:");
+if(!name) return;
+const newNode = document.createElement('div');
+newNode.className = 'node';
+newNode.dataset.info = `${name}: Keine Informationen verfügbar.`;
+newNode.innerText = name;
+
+const childContainer = document.createElement('div');
+childContainer.className = 'child-nodes';
+newNode.appendChild(childContainer);
+
+document.getElementById('tree').insertBefore(newNode, document.getElementById('addRaceBtn'));
+});
+
+// KI Analyse
 document.getElementById("analyzeBtn").addEventListener("click", analyse);
 
 async function analyse() {
-const fileInput = document.getElementById("upload");
-const file = fileInput.files[0];
+const file = document.getElementById("upload").files[0];
 const frage = document.getElementById("search").value;
 const output = document.getElementById("antwort");
 
 if (!frage && !file) {
-output.innerText = "Bitte eine Frage eingeben oder eine Datei hochladen.";
+output.innerText = "Bitte Frage eingeben oder eine Datei hochladen.";
 return;
 }
 
 output.innerText = "KI analysiert... 🔍";
 
 let imageData = null;
-if (file) {
-if (file.type.startsWith("video")) {
-document.getElementById("previewImg").style.display = "none";
+if(file){
+if(file.type.startsWith("video")){
+document.getElementById("previewImg").style.display="none";
 const vid = document.getElementById("previewVideo");
-vid.style.display = "block";
+vid.style.display="block";
 vid.src = URL.createObjectURL(file);
 imageData = await videoScreenshot(file);
 } else {
-document.getElementById("previewVideo").style.display = "none";
+document.getElementById("previewVideo").style.display="none";
 const img = document.getElementById("previewImg");
-img.style.display = "block";
+img.style.display="block";
 img.src = URL.createObjectURL(file);
 imageData = await fileToBase64(file);
 }
 }
 
 try {
-const res = await fetch("/api/ask", {
-method: "POST",
-headers: {"Content-Type":"application/json"},
-body: JSON.stringify({question: frage, image: imageData})
+const res = await fetch("/api/ask",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body: JSON.stringify({question:frage,image:imageData})
 });
 const json = await res.json();
-const antwortText = json?.choices?.[0]?.message?.content || "Es konnte keine Antwort generiert werden.";
+const antwortText = json?.choices?.[0]?.message?.content || "Keine Antwort gefunden.";
 output.innerText = antwortText;
-} catch (err) {
-output.innerText = "Fehler bei der KI‑Analyse.";
+} catch(err){
+output.innerText = "Fehler bei der KI-Analyse.";
 console.error(err);
 }
 }
 
-async function fileToBase64(file) {
-return new Promise(resolve => {
+// Hilfsfunktionen
+async function fileToBase64(file){
+return new Promise(resolve=>{
 const reader = new FileReader();
-reader.onload = () => resolve(reader.result);
+reader.onload = ()=>resolve(reader.result);
 reader.readAsDataURL(file);
 });
 }
 
-async function videoScreenshot(videoFile) {
-return new Promise(resolve => {
+async function videoScreenshot(videoFile){
+return new Promise(resolve=>{
 const video = document.createElement("video");
 video.src = URL.createObjectURL(videoFile);
-video.currentTime = 1;
-video.muted = true;
-video.addEventListener("loadeddata", () => {
+video.currentTime=1;
+video.muted=true;
+video.addEventListener("loadeddata", ()=>{
 const canvas = document.createElement("canvas");
 canvas.width = video.videoWidth;
 canvas.height = video.videoHeight;
 const ctx = canvas.getContext("2d");
-ctx.drawImage(video, 0, 0);
+ctx.drawImage(video,0,0);
 resolve(canvas.toDataURL("image/jpeg"));
 });
 });
