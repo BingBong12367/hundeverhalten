@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hunde Mega-Stammbaum & KI Analyse</title>
+<title>🐕 Hunde Mega-Stammbaum & Analyse</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <style>
 body {font-family:'Roboto',sans-serif;margin:0;padding:0;color:#222;background:#fdf6f0;background-image:url('https://images.unsplash.com/photo-1561948955-570f00a218a0?auto=format&fit=crop&w=1400&q=80');background-size:cover;background-attachment:fixed;}
@@ -33,7 +33,7 @@ button:hover{background:#3ea0ff;}
 
 <div class="tree" id="tree">
 
-<!-- Beispiel Rassen (alle 22 werden eingebaut analog) -->
+<!-- 22 Rassen mit Signalen -->
 <div class="node" data-race="Labrador Retriever">Labrador Retriever
 <div class="child-nodes">
 <div class="node" data-signal="Sitzend">Sitzend</div>
@@ -47,19 +47,24 @@ button:hover{background:#3ea0ff;}
 </div>
 </div>
 
-<div class="node" data-race="Mops">Mops (kein Schwanz)
+<div class="node" data-race="Deutscher Schäferhund">Deutscher Schäferhund
 <div class="child-nodes">
 <div class="node" data-signal="Sitzend">Sitzend</div>
 <div class="node" data-signal="Stehend">Stehend</div>
 <div class="node" data-signal="Spielend">Spielend</div>
-<div class="node" data-signal="Schwanz nicht vorhanden">Schwanz nicht vorhanden</div>
+<div class="node" data-signal="Schwanz hoch">Schwanz hoch</div>
+<div class="node" data-signal="Schwanz unten">Schwanz unten</div>
 <div class="node" data-signal="Ohren vorne">Ohren vorne</div>
 <div class="node" data-signal="Ohren angelegt">Ohren angelegt</div>
 <div class="node" data-signal="Röcheln">Röcheln</div>
 </div>
 </div>
 
-<!-- Die weiteren Rassen analog hier einfügen (Deutscher Schäferhund, Golden Retriever, Beagle, Boxer, Pudel, Rottweiler, Siberian Husky, Dobermann, Chihuahua, Französische Bulldogge, Border Collie, Dalmatiner, Shiba Inu, Australian Shepherd, Cocker Spaniel, Bullterrier, Yorkshire Terrier, Bichon Frisé, Akita Inu, Havaneser) -->
+<!-- Hier alle weiteren 20 Rassen analog einfügen:
+Golden Retriever, Beagle, Boxer, Pudel, Rottweiler, Siberian Husky, Dobermann,
+Chihuahua, Französische Bulldogge, Mops, Border Collie, Dalmatiner, Shiba Inu,
+Australian Shepherd, Cocker Spaniel, Bullterrier, Yorkshire Terrier, Bichon Frisé,
+Akita Inu, Havaneser -->
 
 <button id="addRaceBtn">Neue Rasse hinzufügen</button>
 </div>
@@ -77,6 +82,5 @@ button:hover{background:#3ea0ff;}
 </div>
 
 <script src="ask.js"></script>
-
 </body>
 </html>
